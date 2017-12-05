@@ -41,15 +41,6 @@ app.use(cors(corsOptionsDelegate));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
-// 处理entid
-app.use(entloader);
-// 处理ip白名单
-app.use(ipvalidate);
-// paas 相关接口
-app.use('/api', loader(path.join(__dirname, './server/routes/api'), true));
-// 管理平台相关接口
-app.use('/mgr', loader(path.join(__dirname, './server/routes/mgr'), true));
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/*', function (req, res) {
