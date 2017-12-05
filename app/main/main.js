@@ -9,6 +9,7 @@ const {Header, Footer, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 
 import {System} from '../system/system';
+import {SearchList} from '../search/list';
 import {NotFound} from '../notfound';
 
 import './main.less';
@@ -34,8 +35,6 @@ export class Main extends React.Component {
                         <Menu mode="inline"
                             theme="dark"
                             onClick={this.handleClick}
-
-                              openKeys={["data","statistics","monitor"]}
                         >
                             <Menu.Item key="config">
                                 <Icon type="setting"/>基本配置
@@ -54,12 +53,18 @@ export class Main extends React.Component {
                                 <Menu.Item key="m1">系统监控1</Menu.Item>
                                 <Menu.Item key="m2">系统监控2</Menu.Item>
                             </SubMenu>
+                            <SubMenu title={<span><Icon type="eye-o" /><span>查询任务</span></span>}  key="search">
+                                <Menu.Item key="search.list">
+                                    <Link to='/main/search'>查询列表</Link>
+                                    </Menu.Item>
+                            </SubMenu>
                         </Menu>
                     </Sider>
                     <Layout >
                         <Router>
                             <Switch>
                                 <Route strict path="/main/system" component={System}/>
+                                <Route strict path="/main/search" component={SearchList}/>
                                 <Route component={NotFound}/>
                             </Switch>
                         </Router>
