@@ -4,6 +4,8 @@
 import React from 'react';
 import {Layout, Input, Button, Upload, message, Icon, Col, Select} from 'antd';
 import moment from 'moment';
+import {SearchActions, SearchStore} from './reflux';
+
 import Config from 'config';
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -11,11 +13,15 @@ const {Header, Footer, Sider, Content} = Layout;
 export class SearchCreate extends React.Component {
     constructor(props) {
         super(props);
+        this.unsubscribe = SearchStore.listen(this.onStatusChange.bind(this));
 
-        this.state = {images:[]};
+        this.state = {type:[],images:[]};
     }
 
     onStatusChange(action, data) {
+        if(action){
+            console.log('create complete > ', data);
+        }
     }
 
     componentWillUnmount() {
@@ -23,13 +29,20 @@ export class SearchCreate extends React.Component {
 
     onSearch=()=>{
         console.log('onClick',this.state.name,this.state.type);
+
+        SearchActions.create(
+            this.state.name,
+            this.state.type,
+            this.state.images,
+            ["deep","color","shape","lbp"]
+        );
     }
 
     onNameChange=(e)=>{
         this.state.name = e.target.value;
     }
     onTypeChange=(e)=>{
-        this.state.type = e.target.value;
+        this.state.type = [e.target.value];
     }
 
     onChange=(info)=> {
@@ -38,8 +51,11 @@ export class SearchCreate extends React.Component {
         }
         if (info.file.status === 'done') {
             var images = this.state.images;
-            images.push(info.file.response.name);
-            this.setState({images:images});
+            images.push(info.file.name);
+
+            console.log('info.file.response > ', info.file.name);
+            console.log(images);
+            this.setState({"images":images});
 
             message.success(`${info.file.name} file uploaded successfully`);
         } else if (info.file.status === 'error') {

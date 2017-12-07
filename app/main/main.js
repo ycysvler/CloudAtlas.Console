@@ -27,7 +27,6 @@ export class Main extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (<Layout className="main">
                 <Header className="header"></Header>
                 <Layout>
