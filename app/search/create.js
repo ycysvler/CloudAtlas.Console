@@ -86,6 +86,7 @@ export class SearchCreate extends React.Component {
                             onChange={this.onTypeChange}
                             placeholder="Please select type"
                             style={{width: '100%'}}>
+
                             <Option value="test1">test1</Option>
                             <Option value="test2">test2</Option>
                             <Option value="test3">test3</Option>
