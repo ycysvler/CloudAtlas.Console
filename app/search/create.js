@@ -44,7 +44,7 @@ export class SearchCreate extends React.Component {
         this.state.name = e.target.value;
     }
     onTypeChange = (e) => {
-        this.state.type = [e.target.value];
+        this.state.type = e;
     }
 
     onChange = (info, value) => {
@@ -63,7 +63,6 @@ export class SearchCreate extends React.Component {
         } else if (info.file.status === 'error') {
             message.error(`${info.file.name} file upload failed.`);
         }
-
     }
 
     render() {
@@ -85,11 +84,12 @@ export class SearchCreate extends React.Component {
                         <div className="gutter-box"><Select
                             mode="multiple"
                             onChange={this.onTypeChange}
-                            placeholder="Please select"
-                            defaultValue={['test1', 'test2']}
+                            placeholder="Please select type"
                             style={{width: '100%'}}>
                             <Option value="test1">test1</Option>
-                            <Option value="test2">test2</Option></Select></div>
+                            <Option value="test2">test2</Option>
+                            <Option value="test3">test3</Option>
+                        </Select></div>
                     </Col>
                     <Col className="gutter-row" span={6}>
                         <div className="gutter-box">
