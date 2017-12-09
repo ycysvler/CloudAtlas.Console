@@ -1,5 +1,5 @@
 import Reflux from 'reflux';
-import $ from 'jquery';
+import $ from 'reqwest';
 import Config from 'config';
 import {SigninStore} from '../signinflux';
 
