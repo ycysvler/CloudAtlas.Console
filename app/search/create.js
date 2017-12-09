@@ -5,6 +5,7 @@ import React from 'react';
 import {Layout, Input, Button, Upload, message, Icon, Col, Select, Row} from 'antd';
 import moment from 'moment';
 import {SearchActions, SearchStore} from './reflux';
+import {SigninStore} from '../signinflux';
 
 import Config from 'config';
 
@@ -100,6 +101,7 @@ export class SearchCreate extends React.Component {
                             })}
                             <Upload
                                 onChange={this.onChange}
+                                headers={{appid:SigninStore.ent.appid}}
                                 name='file'
                                 action={Config.url + '/api/search/images'}
                             >

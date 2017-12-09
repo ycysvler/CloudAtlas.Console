@@ -80,8 +80,8 @@ module.exports = {
             },
             {test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'},
             {
-                test: require.resolve('jquery'),
-                loader: "imports-loader?$=jquery"
+                test: require.resolve('reqwest'),
+                loader: "imports-loader?$=reqwest"
             }
         ]
     },

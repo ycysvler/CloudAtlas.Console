@@ -1,5 +1,5 @@
 import Reflux from 'reflux';
-import $ from 'reqwest';
+import reqwest from 'reqwest';
 import Config from 'config';
 
 const SigninActions = Reflux.createActions([
@@ -20,7 +20,7 @@ const SigninStore = Reflux.createStore({
     onSingnin:function(name, password){
         var self = this;
 
-        $.ajax({
+        reqwest({
             url:'',
             type:'POST',
             data:{name:name, password:password},

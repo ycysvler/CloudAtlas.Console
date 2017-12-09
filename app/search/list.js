@@ -24,6 +24,7 @@ export class SearchList extends React.Component {
 
     onStatusChange(action, data) {
         if (action === 'list') {
+            console.log( typeof data);
             console.log('list complete > ', data);
         }
     }

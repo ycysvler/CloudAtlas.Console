@@ -1,5 +1,5 @@
 import Reflux from 'reflux';
-import $ from 'reqwest';
+import reqwest from 'reqwest';
 import Config from 'config';
 import {SigninStore} from '../signinflux';
 
@@ -17,9 +17,10 @@ const SearchStore = Reflux.createStore({
         var data = {name:name, imagetypes:imagetypes,images:images,featuretypes:featuretypes};
         var json = JSON.stringify(data);
 
-        $.ajax({
+        reqwest({
             url: url,
-            type: 'POST',
+            type: 'json',
+            method: 'post',
             contentType: "application/json",
             headers: {
                 appid: SigninStore.ent.appid
@@ -38,10 +39,11 @@ const SearchStore = Reflux.createStore({
         var self = this;
         var url = Config.url + '/api/search';
 
-        $.ajax({
+        reqwest({
             url: url,
-            type: 'GET',
-            dataType: "json",
+            type: 'json',
+            method: 'get',
+            contentType: 'application/json',
             headers: {
                 appid: SigninStore.ent.appid
             },
