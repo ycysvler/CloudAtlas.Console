@@ -6,6 +6,7 @@ import {Button} from 'antd';
 
 import {Main} from './main/main.js';
 import {Signin} from './signin.js';
+import {NotFound} from './notfound';
 
 ReactDOM.render((
     <Router>
@@ -13,6 +14,7 @@ ReactDOM.render((
             <Redirect exact from='/' to='/main'/>
             <Route path="/signin" component={Signin}/>
             <Route path="/main" component={Main}/>
+            <Route component={NotFound}/>
         </Switch>
     </Router>
 ), document.getElementById('root'));

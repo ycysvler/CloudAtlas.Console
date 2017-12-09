@@ -7,6 +7,8 @@ import moment from 'moment';
 
 import {SearchCreate} from './create';
 
+import {SearchActions, SearchStore} from './reflux';
+
 import './index.less';
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -14,14 +16,20 @@ const {Header, Footer, Sider, Content} = Layout;
 export class SearchList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.unsubscribe = SearchStore.listen(this.onStatusChange.bind(this));
+
+        SearchActions.list();
     }
 
     onStatusChange(action, data) {
-
+        if (action === 'list') {
+            console.log('list complete > ', data);
+        }
     }
 
     componentWillUnmount() {
-
+        this.unsubscribe();
     }
 
     render() {

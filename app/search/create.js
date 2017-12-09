@@ -21,12 +21,13 @@ export class SearchCreate extends React.Component {
     }
 
     onStatusChange(action, data) {
-        if (action) {
+        if (action === 'create') {
             console.log('create complete > ', data);
         }
     }
 
     componentWillUnmount() {
+        this.unsubscribe();
     }
 
     onSearch = () => {
