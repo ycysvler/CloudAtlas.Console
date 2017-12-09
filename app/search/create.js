@@ -92,6 +92,7 @@ export class SearchCreate extends React.Component {
                             <Option value="test1">test1</Option>
                             <Option value="test2">test2</Option>
                             <Option value="test3">test3</Option>
+                            <Option value="test4">test4</Option>
                         </Select></div>
                     </Col>
                     <Col className="gutter-row" span={6}>

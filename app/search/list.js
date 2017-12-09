@@ -19,18 +19,38 @@ export class SearchList extends React.Component {
 
         this.unsubscribe = SearchStore.listen(this.onStatusChange.bind(this));
 
-        SearchActions.list();
+        this.state = {items:[],pagination: {pageSize:5, current:1}, name:'e'};
+
+        this.fetch();
     }
 
     onStatusChange(action, data) {
         if (action === 'list') {
-            console.log( typeof data);
             console.log('list complete > ', data);
+
+            const pagination = { ...this.state.pagination };
+            pagination.total = data.pagination.total;
+
+            this.setState({items:data.items, pagination:pagination});
         }
     }
 
     componentWillUnmount() {
         this.unsubscribe();
+    }
+
+    columns = [{
+        title: 'Name',
+        dataIndex: 'name'
+    }];
+
+    fetch = ()=>{
+        SearchActions.list(this.state.name, this.state.pagination.pageSize, this.state.pagination.current);
+    }
+
+    handleTableChange = (pagination, filters, sorter) => {
+        this.state.pagination.current = pagination.current;
+        this.fetch();
     }
 
     render() {
@@ -41,6 +61,11 @@ export class SearchList extends React.Component {
                 </div>
 
                 <div>haha</div>
+                <Table
+                    pagination={this.state.pagination}
+                    rowKey={record => record._id}
+                    onChange={this.handleTableChange}
+                    dataSource={this.state.items} columns={this.columns} />
 
             </Layout>
         );

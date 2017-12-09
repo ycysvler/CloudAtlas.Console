@@ -35,7 +35,7 @@ const SearchStore = Reflux.createStore({
             }
         });
     },
-    onList:function () {
+    onList:function (name,pageSize,pageIndex) {
         var self = this;
         var url = Config.url + '/api/search';
 
@@ -43,11 +43,11 @@ const SearchStore = Reflux.createStore({
             url: url,
             type: 'json',
             method: 'get',
+            data:{'name':name, pagesize:pageSize, 'pageindex':pageIndex},
             contentType: 'application/json',
             headers: {
                 appid: SigninStore.ent.appid
             },
-            data: {},
             success: function (data, status) {
                 self.trigger('list', data);
             },
