@@ -55,7 +55,7 @@ export class SearchCreate extends React.Component {
         }
         if (info.file.status === 'done') {
             var images = this.state.images;
-            images.push(info.file.name);
+            images.push(info.file.response.name);
 
             console.log('info.file.response > ', info.file.name);
             console.log(images);
