@@ -42,9 +42,8 @@ export class SearchList extends React.Component {
     componentWillUnmount() {
         this.unsubscribe();
     }
-    onQueryChange = (e) => {
-        var value = e;
-        console.log('e=>',e);
+    onQueryChange = (value) => {
+
         this.state.name = value;
         this.fetch();
 
@@ -114,7 +113,7 @@ export class SearchList extends React.Component {
                 </div>
                 <Layout className="monitor" style={{padding: '16px'}}>
                     <div  style={{"background": "#fff", height: 'auto'}}>
-                        <Search id="name"
+                        <Search
                                onSearch={this.onQueryChange}
                                placeholder="输入Name关键字查询"
                                 enterButton

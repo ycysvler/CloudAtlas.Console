@@ -81,6 +81,7 @@ export class Main extends React.Component {
                             <Switch>
                                 <Route strict path="/main/system" component={System}/>
                                 <Route strict path="/main/search" component={SearchList}/>
+
                                 <Route component={NotFound}/>
                             </Switch>
                         </Router>
