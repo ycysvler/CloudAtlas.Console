@@ -10,7 +10,7 @@ import {SearchCreate} from './create';
 import {SearchActions, SearchStore} from './reflux';
 
 import './index.less';
-
+const Search = Input.Search;
 const {Header, Footer, Sider, Content} = Layout;
 
 export class SearchList extends React.Component {
@@ -19,7 +19,11 @@ export class SearchList extends React.Component {
 
         this.unsubscribe = SearchStore.listen(this.onStatusChange.bind(this));
 
-        this.state = {items:[],pagination: {pageSize:5, current:1}, name:'e'};
+        this.state = {
+            items:[],
+            pagination: {pageSize:5, current:1},
+            name:''
+        };
 
         this.fetch();
     }
@@ -38,11 +42,60 @@ export class SearchList extends React.Component {
     componentWillUnmount() {
         this.unsubscribe();
     }
+    onQueryChange = (e) => {
+        var value = e;
+        console.log('e=>',e);
+        this.state.name = value;
+        this.fetch();
 
-    columns = [{
-        title: 'Name',
-        dataIndex: 'name'
-    }];
+    }
+    getColumn = () => {
+        var columns = [];
+
+            columns.push({
+                title: 'name', dataIndex: 'name', key: 'name',
+            });
+
+        columns.push({
+            title: 'id', dataIndex: '_id', key: '_id'
+        });
+
+        columns.push({
+            title: 'createtime', dataIndex: 'createtime', key: 'createtime',
+            render: function (text, record, index) {
+                return <div>{new moment(record.createtime).format('YYYY-MM-DD HH:mm:ss')}</div>
+            }
+        });
+
+        columns.push({
+            title: 'images', dataIndex: 'images', key: 'images',
+            render: function (text, record, index) {
+                return <span>{record.images.join(' , ')}</span>
+            }
+        });
+        columns.push({
+            title: 'imagetypes', dataIndex: 'imagetypes', key: 'imagetypes',
+            render: function (text, record, index) {
+                return <span>{record.imagetypes.join(' , ')}</span>
+            }
+        });
+        columns.push({
+            title: 'featuretypes', dataIndex: 'featuretypes', key: 'featuretypes',
+            render: function (text, record, index) {
+                return <span>{record.featuretypes.join(' , ')}</span>
+            }
+        });
+
+        columns.push({
+            title: 'progress', dataIndex: 'progress', key: 'progress',
+            render: function (text, record, index) {
+                return <span>{record.progress * 100}%</span>
+            }
+        });
+
+        return columns;
+    }
+
 
     fetch = ()=>{
         SearchActions.list(this.state.name, this.state.pagination.pageSize, this.state.pagination.current);
@@ -59,14 +112,21 @@ export class SearchList extends React.Component {
                 <div className="searchbar">
                     <SearchCreate />
                 </div>
+                <Layout className="monitor" style={{padding: '16px'}}>
+                    <div  style={{"background": "#fff", height: 'auto'}}>
+                        <Search id="name"
+                               onSearch={this.onQueryChange}
+                               placeholder="输入Name关键字查询"
+                                enterButton
+                        />
 
-                <div>haha</div>
-                <Table
-                    pagination={this.state.pagination}
-                    rowKey={record => record._id}
-                    onChange={this.handleTableChange}
-                    dataSource={this.state.items} columns={this.columns} />
-
+                    </div>
+                    <Table
+                        pagination={this.state.pagination}
+                        rowKey={record => record._id}
+                        onChange={this.handleTableChange}
+                        dataSource={this.state.items} columns={this.getColumn()} />
+                </Layout>
             </Layout>
         );
     }
