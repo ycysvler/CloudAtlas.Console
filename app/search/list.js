@@ -43,10 +43,8 @@ export class SearchList extends React.Component {
         this.unsubscribe();
     }
     onQueryChange = (value) => {
-
         this.state.name = value;
         this.fetch();
-
     }
     getColumn = () => {
         var columns = [];
@@ -109,7 +107,7 @@ export class SearchList extends React.Component {
         return (
             <Layout className="search">
                 <div className="searchbar">
-                    <SearchCreate />
+                    <SearchCreate parentFetch = {this.fetch} />
                 </div>
                 <Layout className="monitor" style={{padding: '16px'}}>
                     <div  style={{"background": "#fff", height: 'auto'}}>
