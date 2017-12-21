@@ -6,7 +6,7 @@ import {Button} from 'antd';
 
 import {Main} from './main/main.js';
 import {Signin} from './signin.js';
-import {NotFound} from './notfound';
+import NotFound from './notfound';
 
 ReactDOM.render((
     <Router>
